@@ -83,24 +83,22 @@ def make_stronger(pw):
             pw += types[x + '_vals'][np.random.randint(0,len(types[x + '_vals']))]
             sets[x] = 1
 
-    # if there are no lowercase letters add some
+    # if there are no lowercase letters, add some
     if not sets['l']:
         for i in range(len(pw)):
-            if pw[i].islower():
-                pw = pw.split()
-                pw[i] = pw[i].upper()
+            if pw[i].isupper():
+                pw = list(pw)
+                pw[i] = pw[i].lower()
                 pw = ''.join(pw)
                 break
         sets['l'] = 1
 
-
     # if there are no uppercase letters, add some
     if not sets['u']:
         for i in range(len(pw)):
-            if pw[i].isupper():
-                print(pw[i])
-                pw = pw.split()
-                pw[i] = pw[i].lower()
+            if pw[i].islower():
+                pw = list(pw)
+                pw[i] = pw[i].upper()
                 pw = ''.join(pw)
                 break
         sets['u'] = 1
