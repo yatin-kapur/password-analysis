@@ -75,7 +75,7 @@ def make_stronger(pw):
                 sets['l'] = 1
             else:
                 sets['u'] = 1
-            pw = types[temp[n] + '_vals'][np.random.randint(0,len(types[temp[n] + '_vals']))] + p
+            pw = types[temp[n] + '_vals'][np.random.randint(0,len(types[temp[n] + '_vals']))] + pw
 
     # going through the types that are missing and adding them
     for x in ['d', 'p']:
