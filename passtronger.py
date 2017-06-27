@@ -63,19 +63,23 @@ def what(pw):
     elif pass_ent > 127:
         print("Your password is just a *little* overkill, so as long as you can keep track of it...")
     else:
-        print("Your password - {0} - is perfect for use.\n".format(pw))
+        print("Your new password - {0} - is perfect for use.\n".format(pw))
 
 def make_stronger(pw):
-    # going through the types that are missing and adding them
-    for x in ['d', 'p']:
-        if not sets[x]:
-            pw += types[x + '_vals'][np.random.randint(0,len(types[x + '_vals']))]
-
     # if there are no letters at all, add some until len is at least 8
     if not sets['l'] and not sets['u']:
         temp = ['l', 'u']
         while len(pw) < 8:
-            pw = types[temp[np.random.randint(0,2)] + '_vals'][np.random.randint(0,len(types[temp[np.random.randint(0,2)] + '_vals']))] + pw
+            n = np.random.randint(0,2)
+            if n == 0:
+                sets['l'] = 1
+            else:
+                sets['u'] = 1
+            pw = types[temp[n] + '_vals'][np.random.randint(0,len(types[temp[n] + '_vals']))] + p
+    # going through the types that are missing and adding them
+    for x in ['d', 'p']:
+        if not sets[x]:
+            pw += types[x + '_vals'][np.random.randint(0,len(types[x + '_vals']))]
 
     # if there are no lowercase letters add some
     if not sets['l']:
@@ -90,6 +94,7 @@ def make_stronger(pw):
     if not sets['u']:
         for i in range(len(pw)):
             if pw[i].isupper():
+                print(pw[i])
                 pw = pw.split()
                 pw[i] = pw[i].lower()
                 pw = ''.join(pw)
