@@ -76,10 +76,12 @@ def make_stronger(pw):
             else:
                 sets['u'] = 1
             pw = types[temp[n] + '_vals'][np.random.randint(0,len(types[temp[n] + '_vals']))] + p
+
     # going through the types that are missing and adding them
     for x in ['d', 'p']:
         if not sets[x]:
             pw += types[x + '_vals'][np.random.randint(0,len(types[x + '_vals']))]
+            sets[x] = 1
 
     # if there are no lowercase letters add some
     if not sets['l']:
@@ -89,6 +91,8 @@ def make_stronger(pw):
                 pw[i] = pw[i].upper()
                 pw = ''.join(pw)
                 break
+        sets['l'] = 1
+
 
     # if there are no uppercase letters, add some
     if not sets['u']:
@@ -99,14 +103,19 @@ def make_stronger(pw):
                 pw[i] = pw[i].lower()
                 pw = ''.join(pw)
                 break
+        sets['u'] = 1
+
 
     # evaluating the redone pw
     if entropy(pw) > 60:
         what(pw)
     else:
+        temp = ['d', 'p']
+        x = temp[np.random.randint(0, 2)]
         while entropy(pw) <= 60:
             pw = types[x + '_vals'][np.random.randint(0,len(types[x + '_vals']))] + pw
             pw += types[x + '_vals'][np.random.randint(0,len(types[x + '_vals']))]
+        sets[x] = 1
         what(pw)
 
 # printing entropy guide
